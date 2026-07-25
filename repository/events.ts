@@ -1,6 +1,6 @@
 import { getDb } from "@/lib/mongodb";
 import { IEvent } from "@/types/event";
-import { ObjectId } from "mongodb";
+import { ObjectId, Db } from "mongodb";
 
 // --- Helper functions (persis sama, murni logic, gak nyentuh Mongoose sama sekali) ---
 function generateSlug(title: string): string {
@@ -98,8 +98,7 @@ export async function getEventById(id: ObjectId) {
 }
 
 // --- "EventSchema.index(...)" jadi fungsi setup yang dipanggil sekali di awal ---
-export async function ensureEventIndexes() {
-  const db = await getDb();
+export async function ensureEventIndexes(db: Db) {
   const col = db.collection<IEvent>("events");
   await col.createIndex({ slug: 1 }, { unique: true });
   await col.createIndex({ date: 1, mode: 1 });

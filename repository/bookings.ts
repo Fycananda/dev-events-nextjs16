@@ -1,4 +1,4 @@
-import { ObjectId } from "mongodb";
+import { ObjectId, Db } from "mongodb";
 import { getDb } from "@/lib/mongodb";
 import { IBooking } from "@/types/booking";
 import { getEventById } from "./events";
@@ -55,8 +55,7 @@ export async function getBookingsByEvent(eventId: ObjectId) {
     .toArray();
 }
 
-export async function ensureBookingIndexes() {
-  const db = await getDb();
+export async function ensureBookingIndexes(db: Db) {
   const col = db.collection<IBooking>("bookings");
   await col.createIndex({ eventId: 1 });
   await col.createIndex({ eventId: 1, createdAt: -1 });
