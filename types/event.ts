@@ -1,6 +1,6 @@
 import { ObjectId } from "mongodb";
 
-type TMode = "Online" | "Offline" | "Hybrid";
+type TMode = "online" | "offline" | "hybrid";
 
 export interface IEvent {
   _id?: ObjectId;
