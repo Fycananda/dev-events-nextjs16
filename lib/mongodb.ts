@@ -44,8 +44,12 @@ async function connect(): Promise<Db> {
 
     return db;
   } catch (error) {
-    console.log(error);
-    await client.close();
+    try {
+      await client.close();
+    } catch (closeError) {
+      console.log("Failed to close MongoDB connection:", closeError);
+    }
+    console.error(error);
     throw error;
   }
 }
