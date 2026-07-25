@@ -37,7 +37,7 @@ async function connect(): Promise<Db> {
     // Ini gantinya "index otomatis" Mongoose — dipanggil sekali aja
     // karena createIndex idempotent (aman dipanggil berkali-kali,
     // MongoDB skip kalau index udah ada dan definisinya sama)
-    await Promise.all([ensureEventIndexes(), ensureBookingIndexes()]);
+    await Promise.all([ensureEventIndexes(db), ensureBookingIndexes(db)]);
 
     cache.client = client;
     cache.db = db;
@@ -54,7 +54,10 @@ export async function getDb(): Promise<Db> {
   if (cache.db) return cache.db;
 
   if (!cache.promise) {
-    cache.promise = connect();
+    cache.promise = connect().catch((err) => {
+      cache.promise = null;
+      throw err;
+    });
   }
 
   return cache.promise;
