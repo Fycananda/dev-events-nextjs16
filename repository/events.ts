@@ -87,15 +87,6 @@ export async function createEvent(
   return { ...doc, _id: result.insertedId };
 }
 
-export async function getAllEvent() {
-  const db = await getDb();
-  return db
-    .collection<IEvent>("events")
-    .find({})
-    .sort({ createdAt: -1 })
-    .toArray();
-}
-
 export async function getEventBySlug(slug: string) {
   const db = await getDb();
   return db.collection<IEvent>("events").findOne({ slug });
@@ -104,14 +95,6 @@ export async function getEventBySlug(slug: string) {
 export async function getEventById(id: ObjectId) {
   const db = await getDb();
   return db.collection<IEvent>("events").findOne({ _id: id });
-}
-
-export async function deleteEventBySlug(slug: string) {
-  const db = await getDb();
-
-  return db
-    .collection<Pick<IEvent, "slug">>("events")
-    .deleteOne({ slug: slug });
 }
 
 // --- "EventSchema.index(...)" jadi fungsi setup yang dipanggil sekali di awal ---
