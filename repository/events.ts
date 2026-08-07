@@ -60,8 +60,8 @@ function validateEvent(data: Partial<IEvent>) {
     throw new Error("Mode must be either online, offline, or hybrid");
   }
   if (!data.audience?.trim()) throw new Error("Audience is required");
-  if (!data.agenda?.length)
-    throw new Error("At least one agenda item is required");
+  if (typeof data.agenda !== "string" || !data.agenda.trim())
+    throw new Error("Agenda is required and must be a string");
   if (!data.organizer?.trim()) throw new Error("Organizer is required");
   if (!data.tags?.length) throw new Error("At least one tag is required");
 }

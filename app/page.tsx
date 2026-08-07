@@ -3,6 +3,9 @@ import ExploreBtn from "@/components/ExploreBtn";
 import events from "@/lib/constant";
 
 export default function Home() {
+  const today = new Date().toISOString().split("T")[0];
+  const upcomingEvents = events.filter((event) => event.date >= today);
+
   return (
     <section>
       <h1 className="text-center">
@@ -16,7 +19,7 @@ export default function Home() {
       <div className="mt-15 space-y-7">
         <h3>Featured Events</h3>
         <ul className="events list-none p-0 m-0">
-          {events.map((event) => (
+          {upcomingEvents.map((event) => (
             <li key={event.title}>
               <EventCard {...event} />
             </li>
