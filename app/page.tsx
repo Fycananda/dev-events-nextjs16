@@ -6,6 +6,7 @@ export default function Home() {
   const today = new Date().toISOString().split("T")[0];
   const upcomingEvents = events.filter((event) => event.date >= today);
 
+export default function Home() {
   return (
     <section>
       <h1 className="text-center">
@@ -20,6 +21,7 @@ export default function Home() {
         <h3>Featured Events</h3>
         <ul className="events list-none p-0 m-0">
           {upcomingEvents.map((event) => (
+          {events.map((event) => (
             <li key={event.title}>
               <EventCard {...event} />
             </li>
