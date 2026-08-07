@@ -1,8 +1,6 @@
-import 'dotenv/config'
 import { ensureBookingIndexes } from "@/repository/bookings";
 import { ensureEventIndexes } from "@/repository/events";
 import { MongoClient, Db } from "mongodb";
-
 
 const uri = process.env.MONGODB_URI;
 const dbName = process.env.MONGODB_DB;
