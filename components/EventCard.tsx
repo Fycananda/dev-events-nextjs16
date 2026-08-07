@@ -1,43 +1,37 @@
 "use client";
 
+import { SerializedEvent } from "@/lib/utils/serialize";
 import Image from "next/image";
 import Link from "next/link";
 import posthog from "posthog-js";
 
-interface Prop {
-  title: string;
-  image: string;
-  slug: string;
-  location: string;
-  date: string;
-  time: string;
-}
-const EventCard = ({ title, image, slug, location, date, time }: Prop) => {
+type EventCardProps = SerializedEvent;
+const EventCard = (event: EventCardProps) => {
   return (
     <Link
-      href={"/events"}
+      href={`/events/${event.slug}`}
       id="event-card"
       onClick={() => {
         posthog.capture("event_card_clicked", {
-          event_slug: slug,
-          event_date: date,
+          event_slug: event.slug,
+          event_date: event.date,
           event_location: location,
         });
       }}
     >
       <Image
-        src={image}
-        alt={title}
+        src={event.image}
+        alt={event.title}
         width={410}
         height={300}
         className="poster"
       />
       <div className="flex gap-2">
         <Image src={"/icons/pin.svg"} alt={"location"} width={14} height={14} />
-        <p>{location}</p>
+        <p>{event.location}</p>
       </div>
 
-      <p className="title">{title}</p>
+      <p className="title">{event.title}</p>
 
       <div className="datetime">
         <div>
@@ -47,7 +41,7 @@ const EventCard = ({ title, image, slug, location, date, time }: Prop) => {
             width={14}
             height={14}
           />
-          <p>{date}</p>
+          <p>{event.date}</p>
         </div>
         <div>
           <Image
@@ -56,7 +50,7 @@ const EventCard = ({ title, image, slug, location, date, time }: Prop) => {
             width={14}
             height={14}
           />
-          <p>{time}</p>
+          <p>{event.time}</p>
         </div>
       </div>
     </Link>
@@ -64,3 +58,4 @@ const EventCard = ({ title, image, slug, location, date, time }: Prop) => {
 };
 
 export default EventCard;
+``

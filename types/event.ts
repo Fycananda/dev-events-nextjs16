@@ -15,7 +15,7 @@ export interface IEvent {
   time: string;
   mode: TMode;
   audience: string;
-  agenda: string;
+  agenda: string[];
   organizer: string;
   tags: string[];
   createdAt: Date;

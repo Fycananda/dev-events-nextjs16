@@ -197,7 +197,7 @@
 
   #event {
     .header {
-      @apply flex w-2/3 flex-col items-start gap-4 max-lg:w-full mb-10;
+      @apply flex w-2/3 flex-col items-start gap-4 max-lg:w-full mb-21;
     }
 
     .details {
